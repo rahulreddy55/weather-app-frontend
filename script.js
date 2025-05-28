@@ -6,7 +6,7 @@ async function getForcast() {
     let enteredcity = enteredcityidEle.value;
     console.log(enteredcity);
 
-    let API = `http://api.weatherapi.com/v1/forecast.json?key=${key}&q=${enteredcity}&days=7`;
+    let API = `https://api.weatherapi.com/v1/forecast.json?key=${key}&q=${enteredcity}&days=7`;
     let res = await axios.get(API);
     let data = res.data;
     console.log(data);
