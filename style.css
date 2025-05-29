@@ -22,16 +22,36 @@
     gap: 5px;
     background-color:#303a49;
     padding: 20px;
-    width: 320px;
+    width: 220px;
     color: #ffffff;
     font-family: 'Segoe UI', sans-serif;
     flex-shrink: 0;
-    margin-top: 20px;
+    margin-top: 20px;
+    
 }
-.container7{
+.sevenday{
     display: flex;
+    flex-direction: row;
+    justify-content: center;
     gap: 20px;
     border-bottom: 1px solid white;
-    align-items: center;
+}
+
+.air-conditions {
+    background-color: #202b3b;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    width: 700px;
+    display: flex;
     
+}
+.air-conditions .col h4 {
+    font-weight: bold;
+    margin-top: 5px;
+    gap: 60px;
+}
+.air-conditions .col p {
+    font-size: 14px;
+    margin-bottom: 0;
+    color: #ccc;
 }

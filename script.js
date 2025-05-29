@@ -1,12 +1,11 @@
 let key = "bde4cc6daee5431da6c40507252605";
 
-
 async function getForcast() {
     let enteredcityidEle = document.getElementById("enteredcityid");
     let enteredcity = enteredcityidEle.value;
     console.log(enteredcity);
 
-    let API = `https://api.weatherapi.com/v1/forecast.json?key=${key}&q=${enteredcity}&days=7`;
+    let API = `http://api.weatherapi.com/v1/forecast.json?key=${key}&q=${enteredcity}&days=7`;
     let res = await axios.get(API);
     let data = res.data;
     console.log(data);
@@ -26,6 +25,8 @@ async function getForcast() {
 
     getForecast(data);
     getSevenDayForecast(data);  // <-- New function for 7-day forecast
+    getSevenDayForecast(data);
+    getAirConditions(data); 
 }
 
 function getForecast(data) {
@@ -63,14 +64,40 @@ function getSevenDayForecast(data) {
         let dayName = date.toLocaleDateString('en-US', options);
 
         return `
-            <div class="day-forecast container7">
+            <div class="day-forecast sevenday">
                 <h4>${dayName}</h4>
                 <img src="${day.day.condition.icon}">
                 <p>${day.day.condition.text}</p>
-                <h3>${day.day.avgtemp_c}°c</h3>
             </div>
         `;
     }).join("");
 
-    forecast7IdEle.innerHTML = weekForecast;
+    forecast7IdEle.innerHTML = weekForecast;
+}
+
+function getAirConditions(data) {
+    const airConditionsEle = document.getElementById("airConditions");
+
+    const html = `
+        <div class="row text-center">
+            <div class="col">
+                <p><i class="bi bi-thermometer-half"></i> Real Feel</p>
+                <h4>${data.current.feelslike_c}°</h4>
+            </div>
+            <div class="col">
+                <p><i class="bi bi-wind"></i> Wind</p>
+                <h4>${data.current.wind_kph} km/h</h4>
+            </div>
+            <div class="col">
+                <p><i class="bi bi-cloud-drizzle"></i> Chance of Rain</p>
+                <h4>${data.forecast.forecastday[0].day.daily_chance_of_rain}%</h4>
+            </div>
+            <div class="col">
+                <p><i class="bi bi-brightness-high"></i> UV Index</p>
+                <h4>${data.current.uv}</h4>
+            </div>
+        </div>
+    `;
+
+    airConditionsEle.innerHTML = html;
 }
